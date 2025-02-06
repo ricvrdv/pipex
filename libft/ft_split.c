@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: applecore <applecore@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:47:02 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/01 17:24:25 by applecore        ###   ########.fr       */
+/*   Updated: 2025/01/21 12:29:15 by rjesus-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_words(char *s, char c);
+static int	count_words(char *s, char c);
 static char	**fill_array(char *s, char **str_array, char c);
 static char	*extract_word(char *s, char c);
-void	free_all(char **result, int count);
+static void	free_all(char **result, int count);
 
 char	**ft_split(char *s, char c)
 {
@@ -33,7 +33,7 @@ char	**ft_split(char *s, char c)
 	return (fill_array(s, str_array, c));
 }
 
-int	count_words(char *s, char c)
+static int	count_words(char *s, char c)
 {
 	int	count;
 	int	in_word;
@@ -106,7 +106,7 @@ static char	*extract_word(char *s, char c)
 	return (word);
 }
 
-void	free_all(char **result, int count)
+static void	free_all(char **result, int count)
 {
 	int	i;
 
