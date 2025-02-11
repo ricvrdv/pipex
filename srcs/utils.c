@@ -6,7 +6,7 @@
 /*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:22:42 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/06 14:20:09 by rjesus-d         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:38:15 by rjesus-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,60 +25,27 @@ void	ft_free(char *str[])
 	free(str);
 }
 
-char	*find_dir(char *cmd, char**envp)
+void	close_fd(int *fd)
 {
-	char	*half_path;
-	char	**full_path;
-	char	*path;
-	int		i;
-
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
-		i++;
-	full_path = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (full_path[i])
-	{
-		half_path = ft_strjoin(full_path[i], "/");
-		path = ft_strjoin(half_path, cmd);
-		free(half_path);
-		if (access(path, F_OK | X_OK) == 0)
-		{
-			ft_free(full_path);
-			return (path);
-		}
-		free(path);
-		i++;
-	}
-	ft_free(full_path);
-	return (NULL);
+	close(fd[0]);
+	close(fd[1]);
 }
 
-void	execute_command(char *cmd, char **envp, int pipefd[])
+void	check_envp(char *envp[])
 {
-	char	**cmd_split;
-	char	*path;
+	int	i;
 
-	cmd_split = ft_split(cmd, ' ');
-	if (!cmd_split)
+	i = 0;
+	if (!envp[i])
 	{
-		perror("Error: Failed splitting the command into arguments.");
+		perror("Error: No environment variables");
 		exit(EXIT_FAILURE);
 	}
-	path = find_dir(cmd_split[0], envp);
-	if (!path)
+	while (envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
+		i++;
+	if (!envp[i])
 	{
-		ft_free(cmd_split);
-		perror("Error: Invalid path");
-		close(pipefd[0]);
-		close(pipefd[1]);
-		exit(EXIT_FAILURE);
-	}
-	if (execve(path, cmd_split, envp) == -1)
-	{
-		ft_free(cmd_split);
-		close(pipefd[0]);
-		close(pipefd[1]);
+		perror("Error: No PATH variable");
 		exit(EXIT_FAILURE);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 20:30:01 by rjesus-d          #+#    #+#              #
-#    Updated: 2025/02/05 21:39:04 by rjesus-d         ###   ########.fr        #
+#    Updated: 2025/02/11 18:46:49 by rjesus-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,12 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-LIBFT = ./libft/libfta
+LIBFT = ./libft/libft.a
 
-SRCS = pipex.c
+SRCS = srcs/pipex.c \
+	srcs/processes.c \
+	srcs/commands.c \
+	srcs/utils.c
 
 OBJS = $(SRCS:.c=.o)
 
