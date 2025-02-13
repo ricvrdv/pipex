@@ -6,7 +6,7 @@
 /*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:39:50 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/11 17:39:53 by rjesus-d         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:30:28 by rjesus-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ int	main(int argc, char **argv, char **envp)
 	pid = fork_process();
 	if (pid == 0)
 		setup_child(argv, pipefd, envp);
-	setup_parent(argv, pipefd, envp);
-	close_fd(pipefd);
-	waitpid(pid, &status, 0);
+	else
+	{
+		setup_parent(argv, pipefd, envp);
+		close_fd(pipefd);
+		waitpid(pid, &status, 0);
+	}
 	return (0);
 }
