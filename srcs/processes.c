@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: applecore <applecore@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:39:10 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/11 18:40:41 by rjesus-d         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:20:04 by applecore        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	setup_child(char *argv[], int *pipefd, char *envp[])
 	if (infile == -1)
 	{
 		perror("Error: Failed to open file");
+		close_fd(pipefd);
 		exit(EXIT_FAILURE);
 	}
 	setup_io(infile, pipefd[1], pipefd, 0);
@@ -71,6 +72,7 @@ void	setup_parent(char *argv[], int *pipefd, char *envp[])
 	if (outfile == -1)
 	{
 		perror("Error: Failed to create or open file");
+		close_fd(pipefd);
 		exit(EXIT_FAILURE);
 	}
 	setup_io(pipefd[0], outfile, pipefd, 1);

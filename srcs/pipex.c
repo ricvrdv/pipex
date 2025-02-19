@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: applecore <applecore@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:39:50 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:28 by rjesus-d         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:36:34 by applecore        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		pipefd[2];
-	int		status;
 	pid_t	pid;
 
 	check_envp(envp);
@@ -30,9 +29,8 @@ int	main(int argc, char **argv, char **envp)
 		setup_child(argv, pipefd, envp);
 	else
 	{
+		wait(NULL);
 		setup_parent(argv, pipefd, envp);
-		close_fd(pipefd);
-		waitpid(pid, &status, 0);
 	}
 	return (0);
 }
