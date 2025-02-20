@@ -35,6 +35,10 @@ static void	setup_io(int input_fd, int output_fd, int *pipefd, int pipe_end)
 		close(output_fd);
 	}
 	close(pipefd[pipe_end]);
+	if (pipe_end == 0 && output_fd != pipefd[1])
+		close(pipefd[1]);
+	else if (pipe_end == 1 && output_fd != pipefd[0])
+		close(pipefd[0]);
 }
 
 void	setup_child(char *argv[], int *pipefd, char *envp[])
