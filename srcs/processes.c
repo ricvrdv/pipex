@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   processes.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/24 10:57:09 by rjesus-d          #+#    #+#             */
+/*   Updated: 2025/02/24 10:57:10 by rjesus-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 void	create_pipe(int *pipefd)
@@ -9,7 +21,7 @@ void	create_pipe(int *pipefd)
 	}
 }
 
-pid_t	fork_process(void)
+pid_t	fork_process(int *pipefd)
 {
 	pid_t	pid;
 
@@ -17,6 +29,7 @@ pid_t	fork_process(void)
 	if (pid == -1)
 	{
 		perror("Error: Failed forking the process");
+		close_fd(pipefd);
 		exit(EXIT_FAILURE);
 	}
 	return (pid);
@@ -26,18 +39,26 @@ static void	setup_io(int input_fd, int output_fd, int *pipefd, int pipe_end)
 {
 	if (input_fd != STDIN_FILENO)
 	{
-		dup2(input_fd, STDIN_FILENO);
+		if (dup2(input_fd, STDIN_FILENO) == -1)
+		{
+			perror("Error: dup2 failed for input_fd");
+			exit(EXIT_FAILURE);
+		}
 		close(input_fd);
 	}
 	if (output_fd != STDOUT_FILENO)
 	{
-		dup2(output_fd, STDOUT_FILENO);
+		if (dup2(output_fd, STDOUT_FILENO) == -1)
+		{
+			perror("Error: dup2 failed for output_fd");
+			exit(EXIT_FAILURE);
+		}
 		close(output_fd);
 	}
 	close(pipefd[pipe_end]);
-	if (pipe_end == 0 && output_fd != pipefd[1])
+	if (pipe_end == 0)
 		close(pipefd[1]);
-	else if (pipe_end == 1 && output_fd != pipefd[0])
+	else
 		close(pipefd[0]);
 }
 
@@ -45,7 +66,7 @@ void	setup_child(char *argv[], int *pipefd, char *envp[])
 {
 	int	infile;
 
-	infile = open(argv[1], O_RDONLY, 0);
+	infile = open(argv[1], O_RDONLY, 0444);
 	if (infile == -1)
 	{
 		perror("Error: Failed to open file");

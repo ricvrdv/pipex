@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: applecore <applecore@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rjesus-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 20:29:49 by rjesus-d          #+#    #+#             */
-/*   Updated: 2025/02/19 14:13:13 by applecore        ###   ########.fr       */
+/*   Created: 2025/02/24 10:57:45 by rjesus-d          #+#    #+#             */
+/*   Updated: 2025/02/24 10:57:56 by rjesus-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 // PROCESSES
 void	create_pipe(int *pipefd);
-pid_t	fork_process(void);
+pid_t	fork_process(int *pipefd);
 void	setup_child(char *argv[], int *pipefd, char *envp[]);
 void	setup_parent(char *argv[], int *pipefd, char *envp[]);
 
