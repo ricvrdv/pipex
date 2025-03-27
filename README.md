@@ -26,9 +26,10 @@ Simulates shell piping:
 ```
 make
 ```
-2. **Run the program with an existing `infile` and a `outfile` that is created by the program if it does not already exists.**`
+2. **Run the program with an existing `infile` and a `outfile` that is created by the program if it does not already exist.**
 ```
 ./pipex infile cmd1 cmd2 outfile
 ```
+`cmd1` and `cmd2` are shell commands that are executed in sequence, with `cmd1`'s output being used as `cmd2`'s input, just like in a Unix pipeline.
 
 
