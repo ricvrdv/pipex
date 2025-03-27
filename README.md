@@ -31,5 +31,16 @@ make
 ./pipex infile cmd1 cmd2 outfile
 ```
 `cmd1` and `cmd2` are shell commands that are executed in sequence, with `cmd1`'s output being used as `cmd2`'s input, just like in a Unix pipeline.
+3. **Example:**
+```
+./pipex infile "cat" "wc -l" outfile
+```
+
+It is equivalent to:
+```
+< infile cat | wc -l > outfile
+```
+
+
 
 
