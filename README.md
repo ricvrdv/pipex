@@ -9,3 +9,26 @@ Simulates shell piping:
 ```
 < file1 cmd1 | cmd2 > file2
 ```
+
+### REPOSITORY STRUCTURE
+- `srcs`: Contains the source code for the program.
+- `libft`: Custom library for utility functions.
+- `pipex.h`: Header file containing the functions prototypes and including the used external libraries.
+- `Makefile`: Compiles the project.
+
+### KEY FEATURES
+- Uses **forks**, **pipes**, and **file descriptors** for inter-process communication.
+- Handles edge cases like invalid commands and file errors.
+- Implements error handling and memory management.
+
+### USAGE
+1. **Compile the program:**
+```
+make
+```
+2. **Run the program with an existing `infile` and a `outfile` that is created by the program if it does not already exists.**`
+```
+./pipex infile cmd1 cmd2 outfile
+```
+
+
