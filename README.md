@@ -43,6 +43,11 @@ It is equivalent to:
 < infile cat | wc -l > outfile
 ```
 
+Breakdown:
+- `cat < infile`: Reads the contents of `infile`.
+- `| wc -l`: Passes the output of `cat` to `wc -l`, which counts the number of lines.
+- `> outfile`: Redirects the final output to `outfile`.
+
 
 
 
