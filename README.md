@@ -1,7 +1,5 @@
 # 42 - PIPEX
 
-### [MILESTONE 2]
-
 ### SUMMARY
 Pipex is a project that replicates the behavior of the Unix pipeline (|). It takes input and output files along with two shell commands, executing them in sequence while redirecting the output of the first command to the input of the second.
 
@@ -48,6 +46,5 @@ Breakdown:
 - `| wc -l`: Passes the output of `cat` to `wc -l`, which counts the number of lines.
 - `> outfile`: Redirects the final output to `outfile`.
 
-
-
-
+----
+🐸 Feel free to fork, clone, or contact me for questions or feedback. 
