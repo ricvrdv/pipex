@@ -12,7 +12,7 @@ Simulates shell piping:
 - `srcs`: Contains the source code for the program.
 - `libft`: Custom library for utility functions.
 - `pipex.h`: Header file containing the functions prototypes and including the used external libraries.
-- `Makefile`: Compiles the project.
+- `Makefile`: Tells `make` how to compile and link a program.
 
 ### KEY FEATURES
 - Uses **forks**, **pipes**, and **file descriptors** for inter-process communication.
